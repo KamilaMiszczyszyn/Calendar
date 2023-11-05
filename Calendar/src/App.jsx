@@ -1,17 +1,19 @@
-
-import './App.css'
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
-import { Layout, Login, Register, Home } from './components/index';
+import { Layout, Login, Register, Home, ForgotPassword } from './components/index';
+import {ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
   return (
-        <Routes>
+    <>
+    <Routes>
           <Route path="/" element={<Layout />}>
    
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
 
             <Route path="/" element={
               <PrivateRoute>
@@ -19,7 +21,11 @@ function App() {
               </PrivateRoute>}/>
 
           </Route>
-        </Routes>
+        </Routes>  
+        <ToastContainer />
+    </>
+    
+        
   )
 }
 

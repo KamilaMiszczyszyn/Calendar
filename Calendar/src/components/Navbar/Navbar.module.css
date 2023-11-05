@@ -1,0 +1,30 @@
+.navbar_container{
+    background-color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
+    box-shadow: var(--box-shadow);
+}
+
+.navbar_container h1 {
+    font-size: 30px;
+    font-family: 'Satisfy', cursive;
+    color: var(--primary-color)
+}
+
+.navbar_container button{
+    background-color: var(--dark-color);
+    border-radius: var(--border-radius);
+    padding: 5px 30px;
+    border: none;
+    margin: 15px 0;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.navbar_container button:hover{
+    opacity: 0.8;
+}

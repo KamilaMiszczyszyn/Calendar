@@ -3,10 +3,11 @@ import { Timestamp, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/fir
 import {db} from "./../../firebase/firebase"
 import {DataContext} from "./../../context/DataContext"
 import { AuthContext } from '../../context/AuthContext';
+import styles from "./Planner.module.css"
 
 const months=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-const days=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const days=["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const hours = ["06", "07", "08", "09", "10","11", "12", "13","14","15","16", "17", "18", "19", "20","21", "22", "23"]
 
@@ -19,9 +20,10 @@ const Planner = ({selectedDay, setSelectedDay}) => {
 
   const docRef = doc(db, 'users', currentUser?.uid);
   
-  const date = new Date(selectedDay[2],selectedDay[1],selectedDay[0]);
+  const date = new Date(selectedDay[2],selectedDay[1]-1,selectedDay[0]);
 
   const dayOfWeek = date.getDay();
+ 
 
     const getNotes = (userData, selectedDay) => {
       const plannerArray = userData?.planner
@@ -100,25 +102,35 @@ const Planner = ({selectedDay, setSelectedDay}) => {
   },[userData,selectedDay])
 
   return (
-    <div className="planner_container">
-      <span>{selectedDay[0]}</span><span>{months[selectedDay[1]-1]}</span><span>{days[dayOfWeek]}</span>     
-        <table className="planner_table">
+    <div className={styles.planner_container}>
+      <div className={styles.planner_header}>
+        <span className={styles.day}>{selectedDay[0]}</span>
+        <span className={styles.month}>{months[selectedDay[1]-1]}</span>
+        <span className={styles.dayofweek}>{days[dayOfWeek]}</span> 
+      </div> 
+        <table>
           <tbody>
             {notes.map((note, index)=> {
               return(
               <tr key={index}>
-                <td>{note[0]}</td>
+                <td>{note[0] > 12 ?       
+                (<div className={styles.hour}><span>{note[0]-12 >9 ? (`${note[0]-12}`) : (`0${note[0]-12}`)}</span><span>PM</span></div>)
+                             
+                 :   
+                (<div className={styles.hour}><span>{`${note[0]}`}</span><span>AM</span></div>)
+                 }
+                 </td>
                 <td>
                   {editForm === index ? 
-                  <form onSubmit={handleSubmit}>
-                    <textarea id={note[0]} name="note" rows="4" cols="50" defaultValue={note[1]}>
-                      
-                    </textarea> 
+                  <form className={styles.edit_form} onSubmit={handleSubmit}>
+                    <input id={note[0]} name="note" maxLength="90" defaultValue={note[1]}/>
+                    <div>
                     <button type="submit">Save</button>
                     <button type="button" onClick={()=> setEditForm(false)} >Cancel</button>
+                    </div>
                   </form> 
                   :  
-                  <div>
+                  <div className={styles.note}>
                     <p>{note[1]}</p>
                     {!note[1] ? 
                     <button onClick={() => setEditForm(index)}>+</button> :

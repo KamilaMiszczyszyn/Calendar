@@ -1,5 +1,6 @@
 import {auth} from "./../../firebase/firebase"
 import {signOut} from 'firebase/auth'
+import styles from "./Navbar.module.css"
 
 const Navbar = () => {
 
@@ -12,7 +13,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="container">
+    <div className={styles.navbar_container}>
       <h1>Calendar</h1>
       <button onClick={logout}>Wyloguj</button>
     </div>

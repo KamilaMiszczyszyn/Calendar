@@ -1,0 +1,37 @@
+.layout_container{
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: 
+    "navbar"
+    "page_content"
+    "footer"
+    ;
+    grid-template-rows: 40px auto 50px;
+}
+
+.background {
+    background: url("./../../assets/background.png") no-repeat;
+    background-size: 100%;
+}
+
+.navbar{
+    grid-area: navbar;
+}
+
+.page_content{
+    padding: 20px;
+    grid-area: page_content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+@media screen and (max-width: 480px) {
+    .page_content {
+        padding: 0;
+    }
+}

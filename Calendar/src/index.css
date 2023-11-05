@@ -1,0 +1,35 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    --white: #FFFFFF;
+    --dark-color: #474747;
+    --primary-color: #DAB24A;
+    --light-color: #F8F7F2;
+    --box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+    --border-radius: 10px;
+    color: var(--dark-color);
+    background-color: var(--light-color); 
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+a:hover{
+    color: var(--primary-color)
+}
+
+button{
+    cursor: pointer;
+}

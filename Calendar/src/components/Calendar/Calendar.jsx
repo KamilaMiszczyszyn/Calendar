@@ -1,5 +1,5 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
+import styles from "./Calendar.module.css"
 
 
 const days=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -87,13 +87,17 @@ const Calendar = ({setSelectedDay, selectedDay}) => {
   console.log(selectedDay)
 
   return (
-    <div className="calendar_container">
-        <div className="calendar_header">
-            <button onClick={()=> prevMonth()}>Prev</button>
-            <span>{months[month-1]}</span><span>{year}</span>
-            <button onClick={()=>nextMonth()}>Next</button>
+    <div className={styles.calendar_container}>
+        <div className={styles.calendar_header}>
+            <p className={styles.year}>{year}</p>
+            <div>
+            <button onClick={()=> prevMonth()}>&#60;</button>
+            <p className={styles.month}>{months[month-1]}</p>
+            <button onClick={()=>nextMonth()}>&#62;</button>
+            </div>
+
         </div>
-        <table className="calendar_table">
+        <table className={styles.calendar_table}>
             <thead>
                 <tr>
                 {days.map((weekDay, index)=>{
@@ -103,7 +107,7 @@ const Calendar = ({setSelectedDay, selectedDay}) => {
             </thead>
             <tbody>
                 {monthDays.map((week,index)=> {
-                    return (<tr key={index}>{week.map((day,index)=>{return(<td key={index} onClick={()=>setSelectedDay(day)}>{day[0]}</td>)})}</tr>)
+                    return (<tr key={index}>{week.map((day,index)=>{return(<td key={index} className={`${day[0] === selectedDay[0] && day[1] === selectedDay[1] && day[2] === selectedDay[2] ? styles.selected_day : null} ${day.length !== 0 ? styles.cursor : null}`} onClick={()=>{if(day.length !== 0){return setSelectedDay(day)}}}>{day[0]}</td>)})}</tr>)
                 })}
             </tbody>
         </table>
